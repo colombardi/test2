@@ -88,9 +88,7 @@ jobs:
     - name: Semgrep ci
       env:
         SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-      run:  | 
-            semgrep login
-            semgrep ci
+      run: semgrep ci
      
 
     
