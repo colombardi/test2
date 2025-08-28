@@ -86,11 +86,12 @@ jobs:
     - name: Semgrep scan
       run: semgrep --config=auto .
     - name: Semgrep ci
+      env:
+        SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
       run:  | 
             semgrep login
             semgrep ci
-      env:
-        SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+     
 
     
 
