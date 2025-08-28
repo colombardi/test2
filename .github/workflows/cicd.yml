@@ -85,5 +85,9 @@ jobs:
         
     - name: Semgrep scan
       run: semgrep --config=auto .
+    - name: Semgrep ci
+      run: semgrep ci
+
+    
 
    
