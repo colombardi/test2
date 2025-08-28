@@ -28,7 +28,7 @@ permissions:
 
 
 jobs:
-  compile:
+  Compile:
 
     runs-on: ubuntu-latest
 
@@ -45,7 +45,7 @@ jobs:
           mvn -B package --file pom.xml
           mvn compile
 
-  Security:
+  Security-trivy:
 
     runs-on: ubuntu-latest
 
@@ -70,5 +70,20 @@ jobs:
     - name: Gitleaks code scan
       run: gitleaks detect source . -r gitleaksReport.json -f json 
 
+  Security-semgrep:
+    needs: Security-trivy #blocca l'esecuzione parallela
+                          #fa eseguire questo job dopo Security-trivy
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+  
+    - name: Semgrep & phyton installation
+      run: | #per comandi multilinea
+        sudo apt update && sudo apt install -y python3 python3-pip
+        pip3 install semgrep
+        
+    - name: Semgrep scan
+      run: semgrep --config=auto .
 
    
